@@ -58,6 +58,7 @@ enum custom_keycodes {
   CONSTANT,
   LAMDA,
   THANKS,
+  COULD,
 };
 
 enum combo_events {
@@ -85,6 +86,7 @@ enum combo_events {
   CT_CONSTANT,
   LD_LAMDA,
   TKS_THANKS,
+  COD_COULD,
 };
 //uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this instead!
 
@@ -111,6 +113,7 @@ const uint16_t PROGMEM youre_combo[] =  { KC_Y, KC_R, COMBO_END};
 const uint16_t PROGMEM const_combo[] =  { KC_C, KC_T, COMBO_END};
 const uint16_t PROGMEM lamda_combo[] =  { KC_L, KC_D, COMBO_END};
 const uint16_t PROGMEM thanks_combo[] =  { KC_T, KC_K, KC_S, COMBO_END};
+const uint16_t PROGMEM could_combo[] =  { KC_C, KC_O, KC_D, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [CLE_CLASSNAME] = COMBO(classname_combo, className),
@@ -136,6 +139,7 @@ combo_t key_combos[COMBO_COUNT] = {
   [CT_CONSTANT] = COMBO(const_combo, CONSTANT),
   [LD_LAMDA] = COMBO(lamda_combo, LAMDA),
   [TKS_THANKS] = COMBO(thanks_combo, THANKS),
+  [COD_COULD] = COMBO(could_combo, COULD),
 };
 
 
@@ -510,6 +514,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       case THANKS :
       if(record->event.pressed){
         SEND_STRING("thanks");
+      }
+      break;
+      case COULD :
+      if(record->event.pressed){
+        SEND_STRING("could");
       }
       break;
   }
