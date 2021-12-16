@@ -87,6 +87,7 @@ enum combo_events {
   LD_LAMDA,
   TKS_THANKS,
   COD_COULD,
+  FP_CAPLOCKS,
 };
 //uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this instead!
 
@@ -113,7 +114,7 @@ const uint16_t PROGMEM youre_combo[] =  { KC_Y, KC_R, COMBO_END};
 const uint16_t PROGMEM const_combo[] =  { KC_C, KC_T, COMBO_END};
 const uint16_t PROGMEM lamda_combo[] =  { KC_L, KC_D, COMBO_END};
 const uint16_t PROGMEM thanks_combo[] =  { KC_T, KC_K, KC_S, COMBO_END};
-const uint16_t PROGMEM could_combo[] =  { KC_C, KC_O, KC_D, COMBO_END};
+const uint16_t PROGMEM caplocks_combo[] =  { KC_F, KC_P, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [CLE_CLASSNAME] = COMBO(classname_combo, className),
@@ -139,7 +140,7 @@ combo_t key_combos[COMBO_COUNT] = {
   [CT_CONSTANT] = COMBO(const_combo, CONSTANT),
   [LD_LAMDA] = COMBO(lamda_combo, LAMDA),
   [TKS_THANKS] = COMBO(thanks_combo, THANKS),
-  [COD_COULD] = COMBO(could_combo, COULD),
+  [FP_CAPLOCKS] = COMBO(caplocks_combo, KC_CAPSLOCK),
 };
 
 
@@ -149,7 +150,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB, KC_Q, KC_W, KC_F, KC_P, KC_G, KC_TRANSPARENT,
     KC_BSPACE, KC_A, KC_R, KC_S, KC_T, KC_D,
     KC_LSHIFT, LT(4, KC_Z), KC_X, KC_C, KC_V, KC_B, KC_TRANSPARENT, 
-    LT(3, KC_LEFT), LT(5,KC_RIGHT), KC_UP, KC_DOWN, 
+    LT(3, KC_LEFT), LT(5,KC_RIGHT), LT(6,KC_UP), KC_DOWN, 
     LT(1,KC_ENTER), MT(MOD_LALT, KC_BSPACE), ALT_TAB, KC_CAPSLOCK, MT(MOD_LCTL, KC_TAB), KC_DELETE, KC_TRANSPARENT,
 
      KC_TRANSPARENT, KC_6, KC_7, KC_8, KC_9, KC_0, KC_EQUAL,
@@ -161,9 +162,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [1] = LAYOUT_ergodox(KC_TRANSPARENT, LALT(KC_F3), KC_SPACE, LCTL(KC_COMMA), LCTL(KC_PGUP), LCTL(KC_PGDOWN), KC_TRANSPARENT,
     KC_TRANSPARENT, LALT(KC_F3), LCTL(KC_W), LCTL(KC_F), LCTL(LSFT(KC_G)), LCTL(LSFT(KC_L)),KC_TRANSPARENT,
-    KC_DELETE, LCTL(KC_A), LCTL(KC_R), LCTL(KC_S), LCTL(KC_T), LCTL(KC_D),
+    KC_DELETE, RCTL(KC_A), LCTL(KC_R), LCTL(KC_S), LCTL(KC_T), LCTL(KC_D),
     KC_TRANSPARENT, LCTL(KC_Z), LCTL(KC_X), RCTL(KC_C), RCTL(KC_V), RCTL(LSFT(KC_B)), KC_TRANSPARENT,
-    KC_TRANSPARENT, LCTL(LSFT(KC_Z)), KC_WWW_BACK, LSFT(LCTL(KC_DOT)), LSFT(LCTL(KC_COMMA)),
+    KC_TRANSPARENT, LCTL(LSFT(KC_Z)), KC_WWW_BACK, LCTL(KC_PGUP), LCTL(KC_PGDOWN),
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
 
     KC_TRANSPARENT, KC_F6, KC_PGUP, KC_PGDOWN, KC_LPRN, KC_RPRN, KC_PSCREEN, 
@@ -232,7 +233,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [6] = LAYOUT_ergodox(KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,
-        KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,
+        KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,LCTL(KC_PGUP), LCTL(KC_PGDOWN), KC_TRANSPARENT,
         KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,
         KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,
         KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,
@@ -411,7 +412,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
       case STYLE: 
       if(record->event.pressed){
-        SEND_STRING("style=\"\"" SS_TAP(X_LEFT));
+        SEND_STRING("style=" SS_TAP(X_LEFT));
       }
       break;
       case YTIMG: 
@@ -456,28 +457,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
       case COM :
       if(record->event.pressed){
-        SEND_STRING("com");
+        SEND_STRING("com ");
       }
       break;
 
       case MAKE :
       if(record->event.pressed){
-        SEND_STRING("make");
+        SEND_STRING("make ");
       }
       break;
         case YOUR :
       if(record->event.pressed){
-        SEND_STRING("your");
+        SEND_STRING("your ");
       }
       break;
         case YOU :
       if(record->event.pressed){
-        SEND_STRING("you");
+        SEND_STRING("you ");
       }
       break;
         case WITH :
       if(record->event.pressed){
-        SEND_STRING("with");
+        SEND_STRING("with ");
       }
       break;
         case DEGREE :
@@ -497,12 +498,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
         case YOURE :
       if(record->event.pressed){
-        SEND_STRING("you're");
+        SEND_STRING("you're ");
       }
       break;
         case CONSTANT :
       if(record->event.pressed){
-        SEND_STRING("const");
+        SEND_STRING("const ");
       }
       break;
         case LAMDA :
@@ -518,7 +519,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
       case COULD :
       if(record->event.pressed){
-        SEND_STRING("could");
+        SEND_STRING("could ");
       }
       break;
   }
