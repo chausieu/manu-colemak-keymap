@@ -59,6 +59,7 @@ enum custom_keycodes {
   LAMDA,
   THANKS,
   COULD,
+  STRING,
 };
 
 enum combo_events {
@@ -114,7 +115,6 @@ const uint16_t PROGMEM youre_combo[] =  { KC_Y, KC_R, COMBO_END};
 const uint16_t PROGMEM const_combo[] =  { KC_C, KC_T, COMBO_END};
 const uint16_t PROGMEM lamda_combo[] =  { KC_L, KC_D, COMBO_END};
 const uint16_t PROGMEM thanks_combo[] =  { KC_T, KC_K, KC_S, COMBO_END};
-const uint16_t PROGMEM caplocks_combo[] =  { KC_F, KC_P, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [CLE_CLASSNAME] = COMBO(classname_combo, className),
@@ -133,16 +133,14 @@ combo_t key_combos[COMBO_COUNT] = {
   [W_WITH] = COMBO(with_combo, WITH),
   [UR_YOUR] = COMBO(your_combo, YOUR),
   [YU_YOU] = COMBO(you_combo, YOU),
-  [DRE_DEGREE] = COMBO(degree_combo, DEGREE),
-  [TRE_TRADE] = COMBO(trade_combo, TRADE),
-  [REG_REG] = COMBO(reg_combo, REG),
+  [DRE_DEGREE] = COMBO(degree_combo, UC(0x00b0)),
+  [TRE_TRADE] = COMBO(trade_combo, UC(0x2122)),
+  [REG_REG] = COMBO(reg_combo, UC(0x00ae)),
   [YR_YOURE] = COMBO(youre_combo, YOURE),
   [CT_CONSTANT] = COMBO(const_combo, CONSTANT),
   [LD_LAMDA] = COMBO(lamda_combo, LAMDA),
   [TKS_THANKS] = COMBO(thanks_combo, THANKS),
-  [FP_CAPLOCKS] = COMBO(caplocks_combo, KC_CAPSLOCK),
 };
-
 
 //7 7 6 7 5 KC
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -164,7 +162,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRANSPARENT, LALT(KC_F3), LCTL(KC_W), LCTL(KC_F), LCTL(LSFT(KC_G)), LCTL(LSFT(KC_L)),KC_TRANSPARENT,
     KC_DELETE, RCTL(KC_A), LCTL(KC_R), LCTL(KC_S), LCTL(KC_T), LCTL(KC_D),
     KC_TRANSPARENT, LCTL(KC_Z), LCTL(KC_X), RCTL(KC_C), RCTL(KC_V), RCTL(LSFT(KC_B)), KC_TRANSPARENT,
-    KC_TRANSPARENT, LCTL(LSFT(KC_Z)), KC_WWW_BACK, LCTL(KC_PGUP), LCTL(KC_PGDOWN),
+    KC_TRANSPARENT, LCTL(LSFT(KC_Z)), KC_WWW_BACK, LCTL(KC_PGDOWN), KC_TRANSPARENT,
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
 
     KC_TRANSPARENT, KC_F6, KC_PGUP, KC_PGDOWN, KC_LPRN, KC_RPRN, KC_PSCREEN, 
@@ -412,7 +410,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
       case STYLE: 
       if(record->event.pressed){
-        SEND_STRING("style=" SS_TAP(X_LEFT));
+        SEND_STRING("style=");
       }
       break;
       case YTIMG: 
@@ -481,21 +479,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING("with ");
       }
       break;
-        case DEGREE :
-      if(record->event.pressed){
-        SEND_STRING("&deg;");
-      }
-      break;
-        case TRADE :
-      if(record->event.pressed){
-        SEND_STRING("&trade;");
-      }
-      break;
-        case REG :
-      if(record->event.pressed){
-        SEND_STRING("&reg;");
-      }
-      break;
+       
         case YOURE :
       if(record->event.pressed){
         SEND_STRING("you're ");
@@ -520,6 +504,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       case COULD :
       if(record->event.pressed){
         SEND_STRING("could ");
+      }
+      break;
+
+      case STRING : 
+      if (record->event.pressed){
+        SEND_STRING("string");
       }
       break;
   }
