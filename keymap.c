@@ -60,40 +60,16 @@ enum custom_keycodes {
   THANKS,
   COULD,
   STRING,
+  RENAME,
+  PRODUCTS,
+  PAGES,
+  premio,
 };
 
-enum combo_events {
-  CL_CLASS,
-  CLE_CLASSNAME,
-  STY_STYLE,
-  SIG_SIGNATURE,
-  ITA_YTIMG,
-  DME_DELETEMETAFIELD,
-  HIA_GITADD,
-  HIC_GITCOMMIT,
-  HIP_GITPUSH,
-  HIU_GITPULL,
-  THEW_THEMEWATCH,
-  COMBO_LENGTH,
-  CM_COM,
-  MK_MAKE,
-  W_WITH,
-  UR_YOUR,
-  YU_YOU,
-  DRE_DEGREE,
-  TRE_TRADE,
-  REG_REG,
-  YR_YOURE,
-  CT_CONSTANT,
-  LD_LAMDA,
-  TKS_THANKS,
-  COD_COULD,
-  FP_CAPLOCKS,
-};
-//uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this instead!
+
 
 const uint16_t PROGMEM classname_combo[] = {KC_C, KC_L, KC_E, COMBO_END};
-const uint16_t PROGMEM class_combo[] = {KC_C, KC_L, COMBO_END};
+const uint16_t PROGMEM class_combo[] = {KC_C, KC_L, KC_X, COMBO_END};
 const uint16_t PROGMEM style_combo[] = {KC_S, KC_T, KC_Y, COMBO_END};
 const uint16_t PROGMEM ytimg_combo[] = {KC_I, KC_T, KC_A, COMBO_END};
 const uint16_t PROGMEM dltmetafield_combo[] = {KC_D, KC_M, KC_E, COMBO_END};
@@ -115,31 +91,41 @@ const uint16_t PROGMEM youre_combo[] =  { KC_Y, KC_R, COMBO_END};
 const uint16_t PROGMEM const_combo[] =  { KC_C, KC_T, COMBO_END};
 const uint16_t PROGMEM lamda_combo[] =  { KC_L, KC_D, COMBO_END};
 const uint16_t PROGMEM thanks_combo[] =  { KC_T, KC_K, KC_S, COMBO_END};
+const uint16_t PROGMEM rename_combo[] = {KC_D, KC_I, KC_R, KC_N, KC_E, COMBO_END};
+const uint16_t PROGMEM products_combo[] =  { KC_P, KC_R, KC_O, COMBO_END};
+const uint16_t PROGMEM pages_combo[] =  { KC_P, KC_A, KC_E, COMBO_END};
+const uint16_t PROGMEM premio_combo[] = { KC_P, KC_R, KC_M, COMBO_END};
+const uint16_t PROGMEM the_combo[] = { KC_T, KC_H, KC_E, COMBO_END};
+
 
 combo_t key_combos[COMBO_COUNT] = {
-  [CLE_CLASSNAME] = COMBO(classname_combo, className),
-  [CL_CLASS] = COMBO(class_combo, CLASS),
-  [STY_STYLE] = COMBO(style_combo, STYLE),
-  [ITA_YTIMG] = COMBO(ytimg_combo, YTIMG),
-  [DME_DELETEMETAFIELD] = COMBO(dltmetafield_combo, DELETEMETAFIELD),
-  [SIG_SIGNATURE] = COMBO(signature_combo, SIGNATURE),
-  [HIA_GITADD] = COMBO(gitadd_combo, GITADD),
-  [HIC_GITCOMMIT] = COMBO(gitcommit_combo, GITCOMMIT),
-  [HIP_GITPUSH] = COMBO(gitpush_combo, GITPUSH),
-  [HIU_GITPULL] = COMBO(gitpull_combo, GITPULL),
-  [THEW_THEMEWATCH] = COMBO(themewatch_combo, THEMEWATCH),
-  [CM_COM] = COMBO(com_combo, COM),
-  [MK_MAKE] = COMBO(make_combo, MAKE),
-  [W_WITH] = COMBO(with_combo, WITH),
-  [UR_YOUR] = COMBO(your_combo, YOUR),
-  [YU_YOU] = COMBO(you_combo, YOU),
-  [DRE_DEGREE] = COMBO(degree_combo, UC(0x00b0)),
-  [TRE_TRADE] = COMBO(trade_combo, UC(0x2122)),
-  [REG_REG] = COMBO(reg_combo, UC(0x00ae)),
-  [YR_YOURE] = COMBO(youre_combo, YOURE),
-  [CT_CONSTANT] = COMBO(const_combo, CONSTANT),
-  [LD_LAMDA] = COMBO(lamda_combo, LAMDA),
-  [TKS_THANKS] = COMBO(thanks_combo, THANKS),
+  COMBO(classname_combo, className),
+  COMBO(class_combo, CLASS),
+  COMBO(style_combo, STYLE),
+  COMBO(ytimg_combo, YTIMG),
+  COMBO(dltmetafield_combo, DELETEMETAFIELD),
+  COMBO(signature_combo, SIGNATURE),
+  COMBO(gitadd_combo, GITADD),
+  COMBO(gitcommit_combo, GITCOMMIT),
+  COMBO(gitpush_combo, GITPUSH),
+  COMBO(gitpull_combo, GITPULL),
+  COMBO(themewatch_combo, THEMEWATCH),
+  COMBO(com_combo, COM),
+  COMBO(make_combo, MAKE),
+  COMBO(with_combo, WITH),
+  COMBO(your_combo, YOUR),
+  COMBO(you_combo, YOU),
+  COMBO(degree_combo, UC(0x00b0)),
+  COMBO(trade_combo, UC(0x2122)),
+  COMBO(reg_combo, UC(0x00ae)),
+  COMBO(youre_combo, YOURE),
+  COMBO(const_combo, CONSTANT),
+  COMBO(lamda_combo, LAMDA),
+  COMBO(thanks_combo, THANKS),
+  COMBO(rename_combo, RENAME),
+  COMBO(products_combo, PRODUCTS),
+  COMBO(pages_combo, PAGES),
+  COMBO(premio_combo, premio),
 };
 
 //7 7 6 7 5 KC
@@ -149,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_BSPACE, KC_A, KC_R, KC_S, KC_T, KC_D,
     KC_LSHIFT, LT(4, KC_Z), KC_X, KC_C, KC_V, KC_B, KC_TRANSPARENT, 
     LT(3, KC_LEFT), LT(5,KC_RIGHT), LT(6,KC_UP), KC_DOWN, 
-    LT(1,KC_ENTER), MT(MOD_LALT, KC_BSPACE), ALT_TAB, KC_CAPSLOCK, MT(MOD_LCTL, KC_TAB), KC_DELETE, KC_TRANSPARENT,
+    LT(1,KC_ENTER), MT(MOD_LSFT, KC_BSPACE), MT(MOD_LALT, KC_DELETE), KC_CAPSLOCK, MT(MOD_LCTL, KC_TAB), ALT_TAB, KC_TRANSPARENT,
 
      KC_TRANSPARENT, KC_6, KC_7, KC_8, KC_9, KC_0, KC_EQUAL,
      KC_TRANSPARENT, KC_J, KC_L, KC_U, KC_Y, KC_SCOLON, KC_QUOTE, 
@@ -498,7 +484,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
       case THANKS :
       if(record->event.pressed){
-        SEND_STRING("thanks");
+        SEND_STRING("Thanks");
       }
       break;
       case COULD :
@@ -510,6 +496,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       case STRING : 
       if (record->event.pressed){
         SEND_STRING("string");
+      }
+      break;
+
+      case RENAME: 
+      if (record->event.pressed){
+        SEND_STRING("dir | rename-item -newname {$_.name -replace \"\"}" SS_TAP(X_LEFT) SS_TAP(X_LEFT));
+      }
+      break;
+
+      case PRODUCTS: 
+      if (record->event.pressed){
+        SEND_STRING("/products/");
+      }
+      break;
+
+      case PAGES: 
+      if (record->event.pressed){
+        SEND_STRING("/pages/");
+      }
+      break;
+
+      case premio: 
+      if (record->event.pressed){
+        SEND_STRING("premioinc.com");
       }
       break;
   }
