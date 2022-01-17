@@ -64,6 +64,8 @@ enum custom_keycodes {
   PRODUCTS,
   PAGES,
   premio,
+  DONE,
+  THANKYOU,
 };
 
 
@@ -96,7 +98,9 @@ const uint16_t PROGMEM products_combo[] =  { KC_P, KC_R, KC_O, COMBO_END};
 const uint16_t PROGMEM pages_combo[] =  { KC_P, KC_A, KC_E, COMBO_END};
 const uint16_t PROGMEM premio_combo[] = { KC_P, KC_R, KC_M, COMBO_END};
 const uint16_t PROGMEM the_combo[] = { KC_T, KC_H, KC_E, COMBO_END};
-
+const uint16_t PROGMEM dot_combo[] = { KC_D, KC_O, KC_T, COMBO_END};
+const uint16_t PROGMEM done_combo[] = { KC_D, KC_N, KC_E, COMBO_END};
+const uint16_t PROGMEM thankyou_combo[] = {KC_T, KC_K, KC_Y, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   COMBO(classname_combo, className),
@@ -126,6 +130,9 @@ combo_t key_combos[COMBO_COUNT] = {
   COMBO(products_combo, PRODUCTS),
   COMBO(pages_combo, PAGES),
   COMBO(premio_combo, premio),
+  COMBO(dot_combo,UC(0x2022)),
+  COMBO(done_combo, DONE),
+  COMBO(thankyou_combo, THANKYOU),
 };
 
 //7 7 6 7 5 KC
@@ -520,6 +527,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       case premio: 
       if (record->event.pressed){
         SEND_STRING("premioinc.com");
+      }
+      break;
+
+      case DONE: 
+      if (record->event.pressed){
+        SEND_STRING("done");
+      }
+      break;
+
+      case THANKYOU: 
+      if (record->event.pressed){
+        SEND_STRING("Thank you");
       }
       break;
   }
