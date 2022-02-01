@@ -66,6 +66,7 @@ enum custom_keycodes {
   premio,
   DONE,
   THANKYOU,
+  AZCOPY
 };
 
 
@@ -193,7 +194,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_EQUAL, KC_0),
 
     [4] = LAYOUT_ergodox(KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,LCTL(KC_P),LCTL(KC_G),KC_TRANSPARENT,
+        KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,AZCOPY,LCTL(KC_G),KC_TRANSPARENT,
         KC_TRANSPARENT,KC_TRANSPARENT,APPEND,ASSIGN,RENDER,KC_TRANSPARENT,
         KC_TRANSPARENT,KC_TRANSPARENT,LALT(LCTL(LSFT(KC_W))),LALT(LCTL(KC_I)),LALT(LCTL(KC_C)),KC_TRANSPARENT,KC_TRANSPARENT,
         KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,LALT(LCTL(KC_E)),
@@ -541,6 +542,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING("Thank you");
       }
       break;
+
+      case AZCOPY: 
+      if (record->event.pressed){
+        SEND_STRING("azcopy copy \'.\\CSV\\*\' 'https://premio.blob.core.windows.net/premio-shared/product-datasheet/CSV/?sv=2018-03-28&si=premio-shared-candt&sr=c&sig=FS9ZU5EmIt5Q4lNhPM8fjfYsRpqX8ZZSgkoxobzo5RA%3D'");
+      }
   }
   return true;
 
