@@ -1,4 +1,4 @@
-#include "ergodox_ez.h"
+#include QMK_KEYBOARD_H      
 #include "action_layer.h"
 #include "version.h"
 
@@ -143,7 +143,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_BSPACE, KC_A, KC_R, KC_S, KC_T, KC_D,
     KC_LSHIFT, LT(4, KC_Z), KC_X, KC_C, KC_V, KC_B, KC_TRANSPARENT, 
     LT(3, KC_LEFT), LT(5,KC_RIGHT), LT(6,KC_UP), KC_DOWN, 
-    LT(1,KC_ENTER), MT(MOD_LSFT, KC_BSPACE), MT(MOD_LALT, KC_DELETE), KC_CAPSLOCK, MT(MOD_LCTL, KC_TAB), ALT_TAB, KC_TRANSPARENT,
+    LT(1,KC_ENTER), MT(MOD_LALT, KC_BSPACE), MT(MOD_LSFT, KC_DELETE), KC_CAPSLOCK, MT(MOD_LCTL, KC_TAB), ALT_TAB, KC_TRANSPARENT,
 
      KC_TRANSPARENT, KC_6, KC_7, KC_8, KC_9, KC_0, KC_EQUAL,
      KC_TRANSPARENT, KC_J, KC_L, KC_U, KC_Y, KC_SCOLON, KC_QUOTE, 
@@ -256,17 +256,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool           suspended            = false;
 const uint16_t PROGMEM fn_actions[] = {[1] = ACTION_LAYER_TAP_TOGGLE(1)};
 
-// leaving this in place for compatibilty with old keymaps cloned and re-compiled.
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  switch (id) {
-    case 0:
-      if (record->event.pressed) {
-        SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-      }
-      break;
-  }
-  return MACRO_NONE;
-};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
