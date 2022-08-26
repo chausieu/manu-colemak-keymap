@@ -46,7 +46,6 @@ enum custom_keycodes {
   GITPUSH,
   GITPULL,
   THEMEWATCH,
-  COM,
   MAKE,
   YOUR,
   YOU,
@@ -66,7 +65,12 @@ enum custom_keycodes {
   premio,
   DONE,
   THANKYOU,
-  AZCOPY
+  AZCOPY,
+  WIDTH,
+  HEIGHT,
+  CONTAINER,
+  CONTAINER_FLUID,
+  POSITION_RELATIVE,
 };
 
 
@@ -82,7 +86,6 @@ const uint16_t PROGMEM gitcommit_combo[] = {KC_H, KC_I, KC_C, COMBO_END};
 const uint16_t PROGMEM gitpush_combo[] = {KC_H, KC_I, KC_P, COMBO_END};
 const uint16_t PROGMEM gitpull_combo[] = {KC_H, KC_I, KC_U, COMBO_END};
 const uint16_t PROGMEM themewatch_combo[] = {KC_T, KC_H, KC_E, KC_W, COMBO_END};
-const uint16_t PROGMEM com_combo[] = {KC_C, KC_M, COMBO_END};
 const uint16_t PROGMEM make_combo[] =  { KC_M, KC_K, COMBO_END};
 const uint16_t PROGMEM with_combo[] =  { KC_W, KC_SLASH, COMBO_END};
 const uint16_t PROGMEM your_combo[] =  { KC_U, KC_R, COMBO_END};
@@ -102,6 +105,11 @@ const uint16_t PROGMEM the_combo[] = { KC_T, KC_H, KC_E, COMBO_END};
 const uint16_t PROGMEM dot_combo[] = { KC_D, KC_O, KC_T, COMBO_END};
 const uint16_t PROGMEM done_combo[] = { KC_D, KC_N, KC_E, COMBO_END};
 const uint16_t PROGMEM thankyou_combo[] = {KC_T, KC_K, KC_Y, COMBO_END};
+const uint16_t PROGMEM width_combo[] = { KC_W, KC_I, KC_T, COMBO_END};
+const uint16_t PROGMEM height_combo[] = { KC_H, KC_E, KC_I, COMBO_END};
+const uint16_t PROGMEM container_combo[] = {KC_C, KC_N, KC_E,  COMBO_END};
+const uint16_t PROGMEM container_fluid_combo[] = {KC_C, KC_L, KC_U, COMBO_END};
+const uint16_t PROGMEM position_relative_combo[] = {KC_P, KC_O, KC_S, KC_R, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   COMBO(classname_combo, className),
@@ -115,7 +123,6 @@ combo_t key_combos[COMBO_COUNT] = {
   COMBO(gitpush_combo, GITPUSH),
   COMBO(gitpull_combo, GITPULL),
   COMBO(themewatch_combo, THEMEWATCH),
-  COMBO(com_combo, COM),
   COMBO(make_combo, MAKE),
   COMBO(with_combo, WITH),
   COMBO(your_combo, YOUR),
@@ -134,6 +141,11 @@ combo_t key_combos[COMBO_COUNT] = {
   COMBO(dot_combo,UC(0x2022)),
   COMBO(done_combo, DONE),
   COMBO(thankyou_combo, THANKYOU),
+  COMBO(width_combo, WIDTH),
+  COMBO(height_combo, HEIGHT),
+  COMBO(container_combo,CONTAINER),
+  COMBO(container_fluid_combo,CONTAINER_FLUID),
+  COMBO(position_relative_combo,POSITION_RELATIVE),
 };
 
 //7 7 6 7 5 KC
@@ -150,7 +162,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_H, KC_N, KC_E, KC_I, KC_O, KC_MINUS, 
      KC_TRANSPARENT, KC_K, KC_M, KC_COMMA, KC_DOT, KC_SLASH, KC_RSHIFT,
      KC_SPACE, KC_BSLASH, KC_LBRACKET, KC_RBRACKET, LT(3, KC_GRAVE), 
-     KC_LGUI, LT(2,KC_ENTER), MT(MOD_RSFT, KC_TAB), KC_TRANSPARENT, KC_RCTL, KC_DELETE),
+     KC_RCTL, LT(2,KC_ENTER), MT(MOD_RSFT, KC_TAB), KC_TRANSPARENT, KC_LGUI, KC_DELETE),
 
     [1] = LAYOUT_ergodox(KC_TRANSPARENT, LALT(KC_F3), KC_SPACE, LCTL(KC_COMMA), LCTL(KC_PGUP), LCTL(KC_PGDOWN), KC_TRANSPARENT,
     KC_TRANSPARENT, LALT(KC_F3), LCTL(KC_W), LCTL(KC_F), LCTL(LSFT(KC_G)), LCTL(LSFT(KC_L)),KC_TRANSPARENT,
@@ -436,12 +448,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
 
-      case COM :
-      if(record->event.pressed){
-        SEND_STRING("com ");
-      }
-      break;
-
       case MAKE :
       if(record->event.pressed){
         SEND_STRING("make ");
@@ -529,6 +535,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       case THANKYOU: 
       if (record->event.pressed){
         SEND_STRING("Thank you");
+      }
+      break;
+
+      case WIDTH: 
+      if (record->event.pressed){
+        SEND_STRING("width");
+      }
+      break;
+
+      case HEIGHT: 
+      if (record->event.pressed){
+        SEND_STRING("height");
+      }
+      break;
+
+      case CONTAINER: 
+      if (record->event.pressed){
+        SEND_STRING("container");
+      }
+      break;
+
+      case CONTAINER_FLUID: 
+      if (record->event.pressed){
+        SEND_STRING("container-fluid");
+      }
+      break;
+
+      case POSITION_RELATIVE: 
+      if (record->event.pressed){
+        SEND_STRING("position-relative");
       }
       break;
 
