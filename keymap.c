@@ -71,6 +71,8 @@ enum custom_keycodes {
   CONTAINER,
   CONTAINER_FLUID,
   POSITION_RELATIVE,
+  ROWCENTER,
+  HREFGRADIENT,
 };
 
 
@@ -110,6 +112,8 @@ const uint16_t PROGMEM height_combo[] = { KC_H, KC_E, KC_I, COMBO_END};
 const uint16_t PROGMEM container_combo[] = {KC_C, KC_N, KC_E,  COMBO_END};
 const uint16_t PROGMEM container_fluid_combo[] = {KC_C, KC_L, KC_U, COMBO_END};
 const uint16_t PROGMEM position_relative_combo[] = {KC_P, KC_O, KC_S, KC_R, COMBO_END};
+const uint16_t PROGMEM rowcenter_combo[] = {KC_R, KC_DOT, KC_C,  COMBO_END};
+const uint16_t PROGMEM hrefgradient_combo[] = {KC_R, KC_DOT, KC_G, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   COMBO(classname_combo, className),
@@ -146,6 +150,8 @@ combo_t key_combos[COMBO_COUNT] = {
   COMBO(container_combo,CONTAINER),
   COMBO(container_fluid_combo,CONTAINER_FLUID),
   COMBO(position_relative_combo,POSITION_RELATIVE),
+  COMBO(rowcenter_combo, ROWCENTER),
+  COMBO(hrefgradient_combo,HREFGRADIENT),
 };
 
 //7 7 6 7 5 KC
@@ -565,6 +571,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       case POSITION_RELATIVE: 
       if (record->event.pressed){
         SEND_STRING("position-relative");
+      }
+      break;
+
+      case ROWCENTER: 
+      if (record->event.pressed){
+        SEND_STRING(".row.align-items-center.justify-content-center.gy-3" SS_TAP(X_TAB));
+      }
+      break;
+
+      case HREFGRADIENT: 
+      if (record->event.pressed){
+        SEND_STRING("div.text-center>a.animate-arrow.gradient-button.gradient-button-");
       }
       break;
 
