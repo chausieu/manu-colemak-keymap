@@ -1,4 +1,4 @@
-#include QMK_KEYBOARD_H      
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 #include "version.h"
 
@@ -11,7 +11,7 @@
 #define KC_PC_COPY LCTL(KC_C)
 #define KC_PC_PASTE LCTL(KC_V)
 
-bool is_alt_tab_active = false; 
+bool is_alt_tab_active = false;
 uint16_t alt_tab_timer     = 0;
 
 enum custom_keycodes {
@@ -22,6 +22,7 @@ enum custom_keycodes {
   ENDCOMMENT,
   SHOPIFYDIR,
   CURLYPERCENT,
+  CURLYPERCENTHYPHEN,
   SIGNATURE,
   LAZYIMAGE,
   MINIMIZE,
@@ -127,16 +128,9 @@ combo_t key_combos[COMBO_COUNT] = {
   COMBO(gitpush_combo, GITPUSH),
   COMBO(gitpull_combo, GITPULL),
   COMBO(themewatch_combo, THEMEWATCH),
-  COMBO(make_combo, MAKE),
-  COMBO(with_combo, WITH),
-  COMBO(your_combo, YOUR),
-  COMBO(you_combo, YOU),
   COMBO(degree_combo, UC(0x00b0)),
   COMBO(trade_combo, UC(0x2122)),
   COMBO(reg_combo, UC(0x00ae)),
-  COMBO(youre_combo, YOURE),
-  COMBO(const_combo, CONSTANT),
-  COMBO(lamda_combo, LAMDA),
   COMBO(thanks_combo, THANKS),
   COMBO(rename_combo, RENAME),
   COMBO(products_combo, PRODUCTS),
@@ -159,15 +153,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_ergodox(KC_ESCAPE, KC_1, KC_2, KC_3, KC_4, KC_5, KC_TRANSPARENT,
     KC_TAB, KC_Q, KC_W, KC_F, KC_P, KC_G, KC_TRANSPARENT,
     KC_BSPACE, KC_A, KC_R, KC_S, KC_T, KC_D,
-    KC_LSHIFT, LT(4, KC_Z), KC_X, KC_C, KC_V, KC_B, KC_TRANSPARENT, 
-    LT(3, KC_LEFT), LT(5,KC_RIGHT), LT(6,KC_UP), KC_DOWN, 
+    KC_LSHIFT, LT(4, KC_Z), KC_X, KC_C, KC_V, KC_B, KC_TRANSPARENT,
+    LT(3, KC_LEFT), LT(5,KC_RIGHT), LT(6,KC_UP), KC_DOWN,
     LT(1,KC_ENTER), MT(MOD_LALT, KC_BSPACE), MT(MOD_LSFT, KC_DELETE), KC_CAPSLOCK, MT(MOD_LCTL, KC_TAB), ALT_TAB, KC_TRANSPARENT,
 
      KC_TRANSPARENT, KC_6, KC_7, KC_8, KC_9, KC_0, KC_EQUAL,
-     KC_TRANSPARENT, KC_J, KC_L, KC_U, KC_Y, KC_SCOLON, KC_QUOTE, 
-     KC_H, KC_N, KC_E, KC_I, KC_O, KC_MINUS, 
+     KC_TRANSPARENT, KC_J, KC_L, KC_U, KC_Y, KC_SCOLON, KC_QUOTE,
+     KC_H, KC_N, KC_E, KC_I, KC_O, KC_MINUS,
      KC_TRANSPARENT, KC_K, KC_M, KC_COMMA, KC_DOT, KC_SLASH, KC_RSHIFT,
-     KC_SPACE, KC_BSLASH, KC_LBRACKET, KC_RBRACKET, LT(3, KC_GRAVE), 
+     KC_SPACE, KC_LBRACKET, KC_RBRACKET, KC_BSLASH, LT(3, KC_GRAVE),
      KC_RCTL,  KC_DELETE, MT(MOD_RSFT, KC_TAB), KC_TRANSPARENT, KC_LGUI, LT(2,KC_ENTER)),
 
     [1] = LAYOUT_ergodox(KC_TRANSPARENT, LALT(KC_F3), KC_SPACE, LCTL(KC_COMMA), LCTL(KC_PGUP), LCTL(KC_PGDOWN), KC_TRANSPARENT,
@@ -177,37 +171,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRANSPARENT, LCTL(LSFT(KC_Z)), KC_WWW_BACK, LCTL(KC_PGDOWN), KC_TRANSPARENT,
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
 
-    KC_TRANSPARENT, KC_F6, KC_PGUP, KC_PGDOWN, KC_LPRN, KC_RPRN, KC_PSCREEN, 
-    KC_TRANSPARENT, LSFT(KC_HOME), KC_HOME, KC_UP, KC_END, LSFT(KC_END), KC_TRANSPARENT, 
-    KC_LCBR, KC_LEFT, KC_DOWN, KC_RIGHT, KC_RCBR, KC_BSLASH, 
-    KC_TRANSPARENT, KC_LPRN, KC_DQUO, KC_EQUAL, KC_QUOTE, KC_RPRN, KC_RSHIFT, 
+    KC_TRANSPARENT, KC_F6, KC_PGUP, KC_PGDOWN, KC_LPRN, KC_RPRN, KC_PSCREEN,
+    KC_TRANSPARENT, LSFT(KC_HOME), KC_HOME, KC_UP, KC_END, LSFT(KC_END), KC_TRANSPARENT,
+    KC_LCBR, KC_LEFT, KC_DOWN, KC_RIGHT, KC_RCBR, KC_BSLASH,
+    KC_TRANSPARENT, KC_LPRN, KC_DQUO, KC_EQUAL, KC_QUOTE, KC_RPRN, KC_RSHIFT,
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
     KC_LCTRL, KC_LALT, RSFT(KC_HOME), LSFT(KC_END), KC_TRANSPARENT, KC_LSHIFT),
 
-    [2] = LAYOUT_ergodox(KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
-    	KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_WH_UP, KC_MS_UP, KC_MS_WH_DOWN, KC_WWW_FORWARD, KC_TRANSPARENT, 
-    	KC_CAPSLOCK, KC_MS_BTN1, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, KC_WWW_BACK, 
-    	KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_BTN2, KC_MS_BTN3, KC_MS_BTN1, KC_TRANSPARENT, KC_TRANSPARENT, 
-    	KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    [2] = LAYOUT_ergodox(KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+    	KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_WH_UP, KC_MS_UP, KC_MS_WH_DOWN, KC_WWW_FORWARD, KC_TRANSPARENT,
+    	KC_CAPSLOCK, KC_MS_BTN1, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, KC_WWW_BACK,
+    	KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_BTN2, KC_MS_BTN3, KC_MS_BTN1, KC_TRANSPARENT, KC_TRANSPARENT,
+    	KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
     	KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_ACCEL2, KC_MS_ACCEL1, KC_TRANSPARENT,
 
-    KC_TRANSPARENT, KC_WWW_HOME, KC_WWW_BACK, KC_MS_BTN3, KC_WWW_FORWARD, KC_TRANSPARENT, LGUI(KC_L), 
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_HOME, KC_UP, KC_END, KC_TRANSPARENT, KC_TRANSPARENT, 
-    KC_TRANSPARENT, KC_LEFT, KC_DOWN, KC_RIGHT, KC_RCBR, KC_BSLASH, 
+    KC_TRANSPARENT, KC_WWW_HOME, KC_WWW_BACK, KC_MS_BTN3, KC_WWW_FORWARD, KC_TRANSPARENT, LGUI(KC_L),
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_HOME, KC_UP, KC_END, KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_LEFT, KC_DOWN, KC_RIGHT, KC_RCBR, KC_BSLASH,
     KC_TRANSPARENT,KC_TRANSPARENT,LCTL(KC_V), LCTL(KC_C), LCTL(KC_X), LCTL(KC_Z), KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP, KC_TRANSPARENT,
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_LSHIFT),
 
     [3] = LAYOUT_ergodox(KC_TRANSPARENT, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_TRANSPARENT,
-     SHOPIFYDIR, SHOPIFYDIR, JUSTIFYCONTENT, ALIGNITEMS, LCTL(KC_P), liteYoutube, KC_TRANSPARENT, 
-     KC_CAPSLOCK, CONSOLE_LOG, DIV_WRAPPER, LAZYIMAGE, CURLYPERCENT, render_img, 
-    KC_TRANSPARENT, CURLYPERCENT, KC_TRANSPARENT, COMMENT, ENDCOMMENT, PSEUDODIV, KC_TRANSPARENT, 
+     SHOPIFYDIR, SHOPIFYDIR, JUSTIFYCONTENT, ALIGNITEMS, LCTL(KC_P), liteYoutube, KC_TRANSPARENT,
+     KC_CAPSLOCK, CONSOLE_LOG, DIV_WRAPPER, LAZYIMAGE, CURLYPERCENT, render_img,
+    KC_TRANSPARENT, CURLYPERCENTHYPHEN, KC_TRANSPARENT, COMMENT, ENDCOMMENT, PSEUDODIV, KC_TRANSPARENT,
     KC_TRANSPARENT, KC_TRANSPARENT, GITADD, GITCOMMIT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
 
-    KC_TRANSPARENT, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, 
-    KC_TRANSPARENT, KC_KP_SLASH, KC_7, KC_8, KC_9, KC_KP_MINUS, KC_F12, 
-    KC_KP_ASTERISK, KC_4, KC_5, KC_6, KC_KP_PLUS, KC_EQUAL, 
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_1, KC_2, KC_3, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11,
+    KC_TRANSPARENT, KC_KP_SLASH, KC_7, KC_8, KC_9, KC_KP_MINUS, KC_F12,
+    KC_KP_ASTERISK, KC_4, KC_5, KC_6, KC_KP_PLUS, KC_EQUAL,
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_1, KC_2, KC_3, KC_TRANSPARENT, KC_TRANSPARENT,
     KC_TRANSPARENT, KC_0, KC_DOT, KC_TRANSPARENT, KC_TRANSPARENT,
      KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_EQUAL, KC_0),
 
@@ -268,7 +262,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,
         KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,
         KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT),
-    
+
 };
 
 bool           suspended            = false;
@@ -308,6 +302,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
 
+    case CURLYPERCENTHYPHEN:
+      if(record->event.pressed){
+        SEND_STRING("{%-  -%}" SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT));
+      }
+      break;
+
     case SIGNATURE:
       if (record->event.pressed) {
         SEND_STRING("Charles Chau");
@@ -339,11 +339,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING("console.log()" SS_TAP(X_LEFT));
       }
       break;
-    case liteYoutube: 
+    case liteYoutube:
       if (record->event.pressed){
         SEND_STRING("lite-youtube.[videoid playlabel]");
         SEND_STRING(SS_LCTL("e"));
-      } 
+      }
       break;
     case ALT_TAB:
       if (record->event.pressed) {
@@ -367,8 +367,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed){
           SEND_STRING("align-items-");
         }
-        break; 
-      case ASSIGN: 
+        break;
+      case ASSIGN:
         if (record->event.pressed){
           SEND_STRING("{% assign  %}" SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT));
         }
@@ -378,15 +378,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           SEND_STRING("| append: '");
         }
         break;
-      case RENDER: 
+      case RENDER:
         if (record->event.pressed){
-          SEND_STRING("{% render  %}" SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT));
+          SEND_STRING("{%- render  -%}" SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT));
         }
         break;
 
-      case render_img: 
+      case render_img:
         if (record->event.pressed){
-          SEND_STRING("{% render 'img' with  %}" SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) );
+          SEND_STRING("{%- render 'img' with  -%}" SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) );
         }
         break;
       case PSEUDODIV:
@@ -399,56 +399,56 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           SEND_STRING("left: 0;" SS_TAP(X_ENTER));
         }
       break;
-      case className: 
+      case className:
       if(record->event.pressed){
         SEND_STRING("className=\"\"" SS_TAP(X_LEFT));
       }
       break;
-      case CLASS: 
+      case CLASS:
       if(record->event.pressed){
         SEND_STRING("class=\"\"" SS_TAP(X_LEFT));
       }
       break;
-      case STYLE: 
+      case STYLE:
       if(record->event.pressed){
         SEND_STRING("style=");
       }
       break;
-      case YTIMG: 
+      case YTIMG:
       if(record->event.pressed){
         SEND_STRING("https://i.ytimg.com/vi//hqdefault.jpg" SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT));
       }
       break;
 
-      case DELETEMETAFIELD: 
+      case DELETEMETAFIELD:
       if(record->event.pressed){
         SEND_STRING("'+DELETE_METAFIELD+");
       }
       break;
 
-      case GITADD: 
+      case GITADD:
       if(record->event.pressed){
         SEND_STRING("git add .");
       }
       break;
 
-      case GITCOMMIT: 
+      case GITCOMMIT:
       if(record->event.pressed){
         SEND_STRING("git commit -m \"\"" SS_TAP(X_LEFT));
       }
       break;
-     
-      case GITPUSH: 
+
+      case GITPUSH:
       if(record->event.pressed){
         SEND_STRING("git push origin ");
       }
       break;
-      case GITPULL: 
+      case GITPULL:
       if(record->event.pressed){
         SEND_STRING("git pull");
       }
       break;
-      case THEMEWATCH: 
+      case THEMEWATCH:
       if(record->event.pressed){
         SEND_STRING("theme watch -e ");
       }
@@ -474,7 +474,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING("with ");
       }
       break;
-       
+
         case YOURE :
       if(record->event.pressed){
         SEND_STRING("you're ");
@@ -502,91 +502,91 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
 
-      case STRING : 
+      case STRING :
       if (record->event.pressed){
         SEND_STRING("string");
       }
       break;
 
-      case RENAME: 
+      case RENAME:
       if (record->event.pressed){
         SEND_STRING("dir | rename-item -newname {$_.name -replace \"\"}" SS_TAP(X_LEFT) SS_TAP(X_LEFT));
       }
       break;
 
-      case PRODUCTS: 
+      case PRODUCTS:
       if (record->event.pressed){
         SEND_STRING("/products/");
       }
       break;
 
-      case PAGES: 
+      case PAGES:
       if (record->event.pressed){
         SEND_STRING("/pages/");
       }
       break;
 
-      case premio: 
+      case premio:
       if (record->event.pressed){
         SEND_STRING("premioinc.com");
       }
       break;
 
-      case DONE: 
+      case DONE:
       if (record->event.pressed){
         SEND_STRING("done");
       }
       break;
 
-      case THANKYOU: 
+      case THANKYOU:
       if (record->event.pressed){
         SEND_STRING("Thank you");
       }
       break;
 
-      case WIDTH: 
+      case WIDTH:
       if (record->event.pressed){
         SEND_STRING("width");
       }
       break;
 
-      case HEIGHT: 
+      case HEIGHT:
       if (record->event.pressed){
         SEND_STRING("height");
       }
       break;
 
-      case CONTAINER: 
+      case CONTAINER:
       if (record->event.pressed){
         SEND_STRING("container");
       }
       break;
 
-      case CONTAINER_FLUID: 
+      case CONTAINER_FLUID:
       if (record->event.pressed){
         SEND_STRING("container-fluid");
       }
       break;
 
-      case POSITION_RELATIVE: 
+      case POSITION_RELATIVE:
       if (record->event.pressed){
         SEND_STRING("position-relative");
       }
       break;
 
-      case ROWCENTER: 
+      case ROWCENTER:
       if (record->event.pressed){
         SEND_STRING(".row.align-items-center.justify-content-center.gy-3" SS_TAP(X_TAB));
       }
       break;
 
-      case HREFGRADIENT: 
+      case HREFGRADIENT:
       if (record->event.pressed){
         SEND_STRING("div.text-center>a.animate-arrow.gradient-button.gradient-button-");
       }
       break;
 
-      case AZCOPY: 
+      case AZCOPY:
       if (record->event.pressed){
         SEND_STRING("azcopy copy \'.\\CSV\\*\' 'https://premio.blob.core.windows.net/premio-shared/product-datasheet/CSV/?sv=2018-03-28&si=premio-shared-candt&sr=c&sig=FS9ZU5EmIt5Q4lNhPM8fjfYsRpqX8ZZSgkoxobzo5RA%3D'");
       }
@@ -612,7 +612,7 @@ void led_set_user(uint8_t usb_led) {
   }
 }
 
-uint32_t layer_state_set_user(uint32_t state) 
+uint32_t layer_state_set_user(uint32_t state)
 {
   uint8_t layer = biton32(state);
 
