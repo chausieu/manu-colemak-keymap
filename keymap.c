@@ -46,6 +46,7 @@ enum custom_keycodes {
   GITCOMMIT,
   GITPUSH,
   GITPULL,
+  HEROKUPUSH,
   THEMEWATCH,
   MAKE,
   YOUR,
@@ -87,6 +88,7 @@ const uint16_t PROGMEM signature_combo[] = {KC_S, KC_I, KC_G, COMBO_END};
 const uint16_t PROGMEM gitadd_combo[] = {KC_H, KC_I, KC_A, COMBO_END};
 const uint16_t PROGMEM gitcommit_combo[] = {KC_H, KC_I, KC_C, COMBO_END};
 const uint16_t PROGMEM gitpush_combo[] = {KC_H, KC_I, KC_P, COMBO_END};
+const uint16_t PROGMEM herokupush_combo[] = {KC_H, KC_E, KC_I, KC_P, COMBO_END};
 const uint16_t PROGMEM gitpull_combo[] = {KC_H, KC_I, KC_U, COMBO_END};
 const uint16_t PROGMEM themewatch_combo[] = {KC_T, KC_H, KC_E, KC_W, COMBO_END};
 const uint16_t PROGMEM make_combo[] =  { KC_M, KC_K, COMBO_END};
@@ -146,6 +148,7 @@ combo_t key_combos[COMBO_COUNT] = {
   COMBO(position_relative_combo,POSITION_RELATIVE),
   COMBO(rowcenter_combo, ROWCENTER),
   COMBO(hrefgradient_combo,HREFGRADIENT),
+  COMBO(herokupush_combo, HEROKUPUSH)
 };
 
 //7 7 6 7 5 KC
@@ -158,8 +161,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LT(1,KC_ENTER), MT(MOD_LALT, KC_BSPACE), MT(MOD_LSFT, KC_DELETE), KC_CAPSLOCK, MT(MOD_LCTL, KC_TAB), ALT_TAB, KC_TRANSPARENT,
 
      KC_TRANSPARENT, KC_6, KC_7, KC_8, KC_9, KC_0, KC_EQUAL,
-     KC_TRANSPARENT, KC_J, KC_L, KC_U, KC_Y, KC_SCOLON, KC_QUOTE,
-     KC_H, KC_N, KC_E, KC_I, KC_O, KC_MINUS,
+     KC_TRANSPARENT, KC_J, KC_L, KC_U, KC_Y, KC_SCOLON, KC_MINUS,
+     KC_H, KC_N, KC_E, KC_I, KC_O, KC_QUOTE,
      KC_TRANSPARENT, KC_K, KC_M, KC_COMMA, KC_DOT, KC_SLASH, KC_RSHIFT,
      KC_SPACE, KC_LBRACKET, KC_RBRACKET, KC_BSLASH, LT(3, KC_GRAVE),
      KC_RCTL,  KC_DELETE, MT(MOD_RSFT, KC_TAB), KC_TRANSPARENT, KC_LGUI, LT(2,KC_ENTER)),
@@ -178,7 +181,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
     KC_LCTRL, KC_LALT, RSFT(KC_HOME), LSFT(KC_END), KC_TRANSPARENT, KC_LSHIFT),
 
-    [2] = LAYOUT_ergodox(KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+    [2] = LAYOUT_ergodox(KC_TRANSPARENT, KC_F13, KC_F14, KC_F15, KC_F16, KC_F17, KC_TRANSPARENT,
     	KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_WH_UP, KC_MS_UP, KC_MS_WH_DOWN, KC_WWW_FORWARD, KC_TRANSPARENT,
     	KC_CAPSLOCK, KC_MS_BTN1, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, KC_WWW_BACK,
     	KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_BTN2, KC_MS_BTN3, KC_MS_BTN1, KC_TRANSPARENT, KC_TRANSPARENT,
@@ -448,6 +451,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING("git pull");
       }
       break;
+
+      case HEROKUPUSH:
+      if(record->event.pressed){
+        SEND_STRING("git push heroku ");
+      }
+      break;
+
       case THEMEWATCH:
       if(record->event.pressed){
         SEND_STRING("theme watch -e ");
