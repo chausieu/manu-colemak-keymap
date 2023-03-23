@@ -75,6 +75,7 @@ enum custom_keycodes {
   POSITION_RELATIVE,
   ROWCENTER,
   HREFGRADIENT,
+  FILEIMGURL
 };
 
 
@@ -117,6 +118,7 @@ const uint16_t PROGMEM container_fluid_combo[] = {KC_C, KC_L, KC_U, COMBO_END};
 const uint16_t PROGMEM position_relative_combo[] = {KC_P, KC_O, KC_S, KC_R, COMBO_END};
 const uint16_t PROGMEM rowcenter_combo[] = {KC_R, KC_DOT, KC_C,  COMBO_END};
 const uint16_t PROGMEM hrefgradient_combo[] = {KC_R, KC_DOT, KC_G, COMBO_END};
+const uint16_t PROGMEM file_img_url_combo[] = {KC_F, KC_L, KC_U, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   COMBO(classname_combo, className),
@@ -148,7 +150,8 @@ combo_t key_combos[COMBO_COUNT] = {
   COMBO(position_relative_combo,POSITION_RELATIVE),
   COMBO(rowcenter_combo, ROWCENTER),
   COMBO(hrefgradient_combo,HREFGRADIENT),
-  COMBO(herokupush_combo, HEROKUPUSH)
+  COMBO(herokupush_combo, HEROKUPUSH),
+  COMBO(file_img_url_combo, FILEIMGURL)
 };
 
 //7 7 6 7 5 KC
@@ -161,8 +164,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LT(1,KC_ENTER), MT(MOD_LALT, KC_BSPACE), MT(MOD_LSFT, KC_DELETE), KC_CAPSLOCK, MT(MOD_LCTL, KC_TAB), ALT_TAB, KC_TRANSPARENT,
 
      KC_TRANSPARENT, KC_6, KC_7, KC_8, KC_9, KC_0, KC_EQUAL,
-     KC_TRANSPARENT, KC_J, KC_L, KC_U, KC_Y, KC_SCOLON, KC_MINUS,
-     KC_H, KC_N, KC_E, KC_I, KC_O, KC_QUOTE,
+     KC_TRANSPARENT, KC_J, KC_L, KC_U, KC_Y, KC_SCOLON, KC_QUOTE,
+     KC_H, KC_N, KC_E, KC_I, KC_O, KC_MINUS,
      KC_TRANSPARENT, KC_K, KC_M, KC_COMMA, KC_DOT, KC_SLASH, KC_RSHIFT,
      KC_SPACE, KC_LBRACKET, KC_RBRACKET, KC_BSLASH, LT(3, KC_GRAVE),
      KC_RCTL,  KC_DELETE, MT(MOD_RSFT, KC_TAB), KC_TRANSPARENT, KC_LGUI, LT(2,KC_ENTER)),
@@ -177,7 +180,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRANSPARENT, KC_F6, KC_PGUP, KC_PGDOWN, KC_LPRN, KC_RPRN, KC_PSCREEN,
     KC_TRANSPARENT, LSFT(KC_HOME), KC_HOME, KC_UP, KC_END, LSFT(KC_END), KC_TRANSPARENT,
     KC_LCBR, KC_LEFT, KC_DOWN, KC_RIGHT, KC_RCBR, KC_BSLASH,
-    KC_TRANSPARENT, KC_LPRN, KC_DQUO, KC_EQUAL, KC_QUOTE, KC_RPRN, KC_RSHIFT,
+    KC_TRANSPARENT, LCTL(KC_K), KC_DQUO, KC_EQUAL, KC_QUOTE, KC_RPRN, KC_RSHIFT,
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
     KC_LCTRL, KC_LALT, RSFT(KC_HOME), LSFT(KC_END), KC_TRANSPARENT, KC_LSHIFT),
 
@@ -485,7 +488,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
 
-        case YOURE :
+      case YOURE :
       if(record->event.pressed){
         SEND_STRING("you're ");
       }
@@ -593,6 +596,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       case HREFGRADIENT:
       if (record->event.pressed){
         SEND_STRING("div.text-center>a.animate-arrow.gradient-button.gradient-button-");
+      }
+      break;
+
+    case FILEIMGURL:
+      if (record->event.pressed){
+        SEND_STRING("| file_img_url: \"master\" ");
       }
       break;
 
